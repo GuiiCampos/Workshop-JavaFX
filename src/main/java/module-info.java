@@ -7,4 +7,6 @@ module com.workshopjavafx {
     exports com.workshopjavafx;
     exports com.workshopjavafx.util;
     opens com.workshopjavafx.util to javafx.fxml;
+    opens com.workshopjavafx.model.entities to javafx.base;
+
 }
