@@ -34,7 +34,7 @@ public class ViewController implements Initializable {
     }
     @FXML
     public void onMenuItemDepartmentAction() {
-        System.out.println("onMenuItemDepartmentAction");
+        loadView("DepartmentList.fxml");
     }
 
     @Override
