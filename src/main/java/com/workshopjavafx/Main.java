@@ -10,19 +10,25 @@ import java.io.IOException;
 
 public class Main extends Application {
 
+    private static Scene mainScene;
+
     @Override
     public void start(Stage primaryStage) throws IOException {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MainView.fxml"));
-        ScrollPane root = loader.load();
+        ScrollPane scrollPane = loader.load();
 
-        root.setFitToHeight(true);
-        root.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
+        scrollPane.setFitToWidth(true);
 
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
+        mainScene = new Scene(scrollPane);
+        primaryStage.setScene(mainScene);
         primaryStage.setTitle("Sample JavaFX");
         primaryStage.show();
+    }
+
+    public static Scene getMainScene() {
+        return mainScene;
     }
 
     public static void main(String[] args) {
