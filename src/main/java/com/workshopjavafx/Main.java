@@ -8,15 +8,17 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import static javafx.application.Application.launch;
-
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(Main.class.getResource("View.fxml"));
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("View.fxml"));
+        Parent root = loader.load();
+
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
+        primaryStage.setTitle("Sample JavaFX");
         primaryStage.show();
     }
 
