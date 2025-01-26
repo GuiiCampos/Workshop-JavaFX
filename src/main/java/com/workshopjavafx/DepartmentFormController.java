@@ -1,5 +1,6 @@
 package com.workshopjavafx;
 
+import com.workshopjavafx.model.entities.Department;
 import com.workshopjavafx.util.Constraints;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,6 +12,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class DepartmentFormController implements Initializable {
+
+    private Department enitty;
 
     @FXML
     private TextField txtId;
@@ -24,6 +27,10 @@ public class DepartmentFormController implements Initializable {
     private Button btSave;
     @FXML
     private Button btCancel;
+
+    public void setEnitty(Department enitty) {
+        this.enitty = enitty;
+    }
 
     @FXML
     public void onBtSaveAction() {
@@ -43,4 +50,14 @@ public class DepartmentFormController implements Initializable {
         Constraints.setTextFieldInteger(txtId);
         Constraints.setTextFieldMaxLength(txtName, 30);
     }
+
+    public void updateFormData() {
+        if (enitty == null) {
+            throw new IllegalStateException("Enitty is null");
+        }
+
+        txtId.setText(String.valueOf(enitty.getId()));
+        txtName.setText(enitty.getName());
+    }
+
 }
