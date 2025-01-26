@@ -1,6 +1,7 @@
 package com.workshopjavafx;
 
 import com.workshopjavafx.db.DbException;
+import com.workshopjavafx.listeners.DataChangeListener;
 import com.workshopjavafx.model.entities.Department;
 import com.workshopjavafx.model.services.DepartmentService;
 import com.workshopjavafx.util.Alerts;
@@ -15,12 +16,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class DepartmentFormController implements Initializable {
 
     private Department enitty;
     private DepartmentService dpService;
+
+    private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 
     @FXML
     private TextField txtId;
@@ -42,6 +47,10 @@ public class DepartmentFormController implements Initializable {
         this.dpService = dpService;
     }
 
+    public void subscriteDataChangeListener(DataChangeListener listener) {
+        dataChangeListeners.add(listener);
+    }
+
     @FXML
     public void onBtSaveAction(ActionEvent event) {
         if (enitty == null) {
@@ -53,12 +62,20 @@ public class DepartmentFormController implements Initializable {
         try {
             enitty = getFormData();
             dpService.saveOrUpdate(enitty);
+            notifyDataChangeListeners();
             Utils.currentStage(event).close();
 
         } catch (DbException e) {
             Alerts.showAlert("Error saving object", null, e.getMessage(), Alert.AlertType.ERROR);
         }
     }
+
+    private void notifyDataChangeListeners() {
+        for (DataChangeListener listener : dataChangeListeners) {
+            listener.onDataChanged();
+        }
+    }
+
     private Department getFormData() {
         Department obj = new Department();
         obj.setId(Utils.tryParseToInteger(txtId.getText()));
