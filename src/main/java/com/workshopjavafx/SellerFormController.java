@@ -11,12 +11,11 @@ import com.workshopjavafx.util.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 
 public class SellerFormController implements Initializable {
@@ -28,11 +27,25 @@ public class SellerFormController implements Initializable {
 
     @FXML
     private TextField txtId;
+
     @FXML
     private TextField txtName;
+    @FXML
+    private TextField txtEmail;
+    @FXML
+    private DatePicker dpBirthDate;
+    @FXML
+    private TextField txtBaseSalary;
 
     @FXML
     private Label labelErrorName;
+    @FXML
+    private Label labelErrorEmail;
+    @FXML
+    private Label labelErrorBirthDate;
+    @FXML
+    private Label labelErrorBaseSalary;
+
 
     @FXML
     private Button btSave;
@@ -42,6 +55,7 @@ public class SellerFormController implements Initializable {
     public void setEnitty(Seller enitty) {
         this.enitty = enitty;
     }
+
     public void setDpService(SellerService dpService) {
         this.dpService = dpService;
     }
@@ -54,7 +68,8 @@ public class SellerFormController implements Initializable {
     public void onBtSaveAction(ActionEvent event) {
         if (enitty == null) {
             throw new IllegalStateException("Entity was null");
-        }if (dpService == null) {
+        }
+        if (dpService == null) {
             throw new IllegalStateException("Service was null");
         }
 
@@ -108,7 +123,10 @@ public class SellerFormController implements Initializable {
 
     private void initializeNodes() {
         Constraints.setTextFieldInteger(txtId);
-        Constraints.setTextFieldMaxLength(txtName, 30);
+        Constraints.setTextFieldMaxLength(txtName, 70);
+        Constraints.setTextFieldDouble(txtBaseSalary);
+        Constraints.setTextFieldMaxLength(txtEmail, 50);
+        Utils.formatDatePicker(dpBirthDate, "dd/MM/yyyy");
     }
 
     public void updateFormData() {
@@ -118,6 +136,12 @@ public class SellerFormController implements Initializable {
 
         txtId.setText(String.valueOf(enitty.getId()));
         txtName.setText(enitty.getName());
+        txtEmail.setText(enitty.getEmail());
+        Locale.setDefault(Locale.US);
+        txtBaseSalary.setText(String.format("%.2f", enitty.getBaseSalary()));
+        if (enitty.getBirthDate() != null) {
+            dpBirthDate.setValue(LocalDate.ofInstant(enitty.getBirthDate().toInstant(), ZoneId.systemDefault()));
+        }
     }
 
     private void setErrorMessages(Map<String, String> errors) {
