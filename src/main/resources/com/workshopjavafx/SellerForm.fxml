@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -11,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane prefHeight="353.0" prefWidth="691.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.workshopjavafx.SellerFormController">
+<AnchorPane prefHeight="353.0" prefWidth="691.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.workshopjavafx.SellerFormController">
    <children>
       <GridPane layoutX="25.0" layoutY="39.0" prefHeight="302.0" prefWidth="600.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
         <columnConstraints>
@@ -53,6 +54,7 @@
             <Label fx:id="labelErrorEmail" textFill="#d31818" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <Label fx:id="labelErrorBirthDate" textFill="#da0909" GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <Label fx:id="labelErrorBaseSalary" textFill="#e12323" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <ComboBox fx:id="comboBoxDepartment" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
          </children>
       </GridPane>
    </children>
